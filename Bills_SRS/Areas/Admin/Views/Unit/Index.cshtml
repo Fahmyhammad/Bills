@@ -1,0 +1,47 @@
+﻿@using bill_Entities.Models
+@using bill_Entities.ViewModel
+@model IEnumerable<Unit>
+
+@{
+    ViewBag.PageTitle = "Unit Management";
+    ViewBag.CardTitle = "Unit List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-4 col-12">
+            <a class="btn btn-outline-primary btn-sm py-1 px-4 mt-0 animate__animated animate__fadeInUp" style="width: 100%;" asp-controller="Unit" asp-action="Create">Add Units</a>
+        </div>
+       
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Unit Name</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UnitName</td>
+                        <td>@Html.Raw(item.Notes)</td>
+                        <td>
+                            <a href="/Admin/Unit/Edit/@item.Id" class="btn btn-outline-success btn-sm">Edit</a>
+                            <a href="/Admin/Unit/Delete/@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

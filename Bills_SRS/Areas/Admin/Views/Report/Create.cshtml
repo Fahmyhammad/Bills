@@ -1,0 +1,42 @@
+﻿@using bill_Entities.Models
+@using bill_Entities.ViewModel
+@model ReportViewModel
+
+@{
+    ViewBag.PageTitle = "Report Management";
+    ViewBag.CardTitle = "Report Company";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-controller="Report" method="post">
+            <div class="form-group">
+                <label asp-for="Report.ReportFrom" class="control-label">Report From</label>
+                <input asp-for="Report.ReportFrom" class="form-control" />
+                <span asp-validation-for="Report.ReportFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Report.ReportTo" class="control-label">Report To</label>
+                <input asp-for="Report.ReportTo" class="form-control" />
+                <span asp-validation-for="Report.ReportTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalesList" class="control-label">Sales Invoices</label>
+                <select asp-for="Report.SalesId" class="form-control" asp-items="Model.SalesList"></select>
+                <span asp-validation-for="Report.SalesId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||
+                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Report">Go To Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

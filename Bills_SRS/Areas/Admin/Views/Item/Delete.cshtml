@@ -1,0 +1,44 @@
+﻿@model tableItem
+
+@{
+    ViewBag.PageTitle = "Item Management";
+    ViewBag.CardTitle = "Delete Item";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DeleteItem" method="post">
+            <input hidden asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="ItemName"></label>
+                <input asp-for="ItemName" disabled class="form-control" />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="SellingPrice"></label>
+                <input asp-for="SellingPrice" disabled class="form-control" />
+                <span asp-validation-for="SellingPrice" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="BuyingPrice"></label>
+                <input asp-for="BuyingPrice" disabled class="form-control" />
+                <span asp-validation-for="BuyingPrice" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Notes"></label>
+                <input asp-for="Notes" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <button type="submit" asp-area="Admin" asp-action="DeleteItem" asp-controller="Item" class="btn btn-outline-danger" style="width:120px; height:40px;">Delete</button> ||
+                <a asp-action="Index" asp-controller="Item" class="btn btn-outline-success" style="width:120px; height:40px;">Go To Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

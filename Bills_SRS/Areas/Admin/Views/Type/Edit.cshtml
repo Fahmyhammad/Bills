@@ -1,0 +1,43 @@
+﻿@using bill_Entities.Models
+@using bill_Entities.ViewModel
+@model TypeViewModel;
+
+@{
+    ViewBag.PageTitle = "Type Management";
+    ViewBag.CardTitle = "Edit Type";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-controller="Type" method="post">
+            <input hidden asp-for="type.Id" />
+            <div class="mb-3">
+                <label asp-for="type.CompanyId" class="form-label"></label>
+                <select asp-for="type.CompanyId" class="form-control" asp-items="Model.CompanyList">
+                    <option disabled selected>--Select Company--</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="type.TypeName" class="form-label"></label>
+                <input asp-for="type.TypeName" class="form-control" />
+                <span asp-validation-for="type.TypeName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="type.Notes" class="form-label"></label>
+                <textarea asp-for="type.Notes" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Type" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||
+                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Type">Go To Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,32 @@
+﻿@model Unit;
+@{
+    ViewBag.PageTitle = "Unit Management";
+    ViewBag.CardTitle = "Edit Unit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <input hidden asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="UnitName"></label>
+                <input asp-for="UnitName" class="form-control" />
+                <span asp-validation-for="UnitName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Notes"></label>
+                <textarea asp-for="Notes" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Unit" class="btn btn-outline-success" style="width:120px; height:40px;">Edit</button> ||
+                <a asp-action="Index" asp-controller="Unit" class="btn btn-outline-danger" style="width:120px; height:40px;">Go To Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,52 @@
+﻿@if (TempData["Create"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr["success"]("New item has been Added", "Create")
+    </script>
+}
+
+@if (TempData["Edit"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr["info"]("Done Editing", "Edit")
+    </script>
+}
+
+
+@if (TempData["Delete"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr["error"]("item has been successfully Deleted", "Delete")
+    </script>
+}
+@if (TempData["ErrorName"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr["error"]("The company name already exists.", "Error..")
+    </script>
+}
+@if (TempData["ErrorPrice"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr["error"]("BUYING PRICE Must be less than or equal SELLING PRICE.", "Error..")
+    </script>
+}
+@if (TempData["ErrorNum"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr["error"](ViewBig, "Error..")
+    </script>
+}
+
