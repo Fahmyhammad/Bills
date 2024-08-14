@@ -1,0 +1,36 @@
+﻿@using bill_Entities.Models
+@using bill_Entities.ViewModel
+@model Unit
+
+@{
+    ViewBag.PageTitle = "Unit Management";
+    ViewBag.CardTitle = "Create Unit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-controller="Unit" method="post">
+            <div class="mb-3">
+                <label asp-for="UnitName" class="form-label"></label>
+                <input asp-for="UnitName" class="form-control" />
+                <span asp-validation-for="UnitName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label"></label>
+                <textarea asp-for="Notes" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||
+                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Unit">Go To Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

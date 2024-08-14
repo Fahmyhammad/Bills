@@ -1,0 +1,60 @@
+﻿@using bill_Entities.Models
+@using bill_Entities.ViewModel
+@model ItemViewModel;
+
+@{
+    ViewBag.PageTitle = "Item Management";
+    ViewBag.CardTitle = "Create Item";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddItem" method="post">
+            <div class="mb-3">
+                <label asp-for="item.CompanyId" class="form-label"></label>
+                <select asp-for="item.CompanyId" required class="form-control" asp-items="Model.CompanyList">
+                    <option disabled selected>--Select Company--</option>
+                </select>
+                <span asp-validation-for="item.company" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="item.TypeId" class="form-label"></label>
+                <select asp-for="item.TypeId" required class="form-control" asp-items="Model.TypeList">
+                    <option disabled selected>--Select Type--</option>
+                </select>
+                <span asp-validation-for="item.type" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="item.ItemName" class="form-label"></label>
+                <input asp-for="item.ItemName" required class="form-control" />
+                <span asp-validation-for="item.ItemName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="item.SellingPrice" class="form-label"></label>
+                <input asp-for="item.SellingPrice" required class="form-control" />
+                <span asp-validation-for="item.SellingPrice" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="item.BuyingPrice" class="form-label"></label>
+                <input asp-for="item.BuyingPrice" required class="form-control" />
+                <span asp-validation-for="item.BuyingPrice" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="item.Notes" class="form-label"></label>
+                <textarea asp-for="item.Notes" required class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" value="Create" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||
+                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Item">Go To Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,85 @@
+﻿@using bill_Entities.Models
+@using bill_Entities.ViewModel
+@model SalesViewModel
+
+@{
+    ViewBag.PageTitle = "Bill Management";
+    ViewBag.CardTitle = "Bill Ditails";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="card mt-5">
+    <div class="card-body">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="font-weight-bold">Thank you for your purchase</h2>
+            </div>
+            <form asp-action="Ditails" asp-controller="SalesInvoice" method="post">
+                <input type="hidden" asp-for="@Model.SalesInvoices.Id" />
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <h5 class="text-muted">Client Name:</h5>
+                        <p class="font-weight-bold">@Model.SalesInvoices.client.ClientName</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-muted">Invoice:</h5>
+                        <p class="font-weight-bold">@Model.SalesInvoices.BillsCode</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-muted">Date:</h5>
+                        <p class="font-weight-bold">@Model.SalesInvoices.DateTime.ToString("dd/MM/yyyy")</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-10">
+                        <h5 class="font-weight-bold">@Model.SalesInvoices.TableItem.ItemName</h5>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <p class="font-weight-bold">$@Model.SalesInvoices.Price</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-10">
+                        <h5 class="text-muted">Quantity:</h5>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <p class="font-weight-bold">@Model.SalesInvoices.Quintity</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-10">
+                        <h5 class="text-muted">Total:</h5>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <p class="font-weight-bold">$@Model.SalesInvoices.Total</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-10">
+                        <h5 class="text-muted">Discount:</h5>
+                    </div>
+                    <div class="col-md-2 text-right">
+                        <p class="font-weight-bold">$@Model.SalesInvoices.Discount</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr class="border-dark">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <h4 class="font-weight-bold">Net Total: $@Model.SalesInvoices.NetPrice</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <hr class="border-dark">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

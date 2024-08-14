@@ -1,0 +1,35 @@
+﻿@model Unit
+
+@{
+    ViewBag.PageTitle = "unit Management";
+    ViewBag.CardTitle = "Delete unit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DeleteUnit" method="post">
+            <input hidden asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="UnitName"></label>
+                <input asp-for="UnitName" disabled class="form-control" />
+                <span asp-validation-for="UnitName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Notes"></label>
+                <input asp-for="Notes" disabled class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <button type="submit" asp-area="Admin" asp-action="DeleteUnit" asp-controller="Unit" class="btn btn-outline-danger" style="width:120px; height:40px;">Delete</button> ||
+                <a asp-action="Index" asp-controller="Unit" class="btn btn-outline-success" style="width:120px; height:40px;">Go To Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

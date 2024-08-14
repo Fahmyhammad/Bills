@@ -1,0 +1,44 @@
+﻿@using bill_Entities.ViewModel
+
+@model SalesInvoice
+
+@{
+    ViewBag.PageTitle = "Bill Management";
+    ViewBag.CardTitle = "Delete Bill";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DeleteBill" method="post">
+            <input hidden asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="@Model.BillsCode"></label>
+                <input asp-for="@Model.BillsCode" disabled class="form-control" />
+                <span asp-validation-for="@Model.BillsCode" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Price"></label>
+                <input asp-for="@Model.Price" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Total"></label>
+                <input asp-for="@Model.Total" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.NetPrice"></label>
+                <input asp-for="@Model.NetPrice" disabled class="form-control" />
+            </div>
+            <div class="mb-3">
+                <button type="submit"  class="btn btn-outline-danger" style="width:120px; height:40px;">Delete</button> ||
+                <a asp-action="Index" asp-controller="SalesInvoice" class="btn btn-outline-success" style="width:120px; height:40px;">Go To Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

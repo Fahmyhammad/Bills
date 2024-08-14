@@ -1,0 +1,63 @@
+﻿@using bill_Entities.Models
+@using bill_Entities.ViewModel
+@model IEnumerable<SalesInvoice>
+
+@{
+    ViewBag.PageTitle = "Bill Management";
+    ViewBag.CardTitle = "Bill List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container mt-5">
+    <!-- Add Bills Button and Search Bar -->
+    <div class="row mb-3">
+        <div class="col-md-4 col-12 mb-2 mb-md-0">
+            <a class="btn btn-outline-primary btn-block py-1 px-4 animate__animated animate__fadeInUp" asp-controller="SalesInvoice" asp-action="Create">Add Bill</a>
+        </div>
+        
+    </div>
+
+    <!-- Sales Invoices Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Bill Number</th>
+                    <th scope="col">Client Name</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Selling Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Remaining</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.BillsCode</td>
+                        <td>@item.client.ClientName</td>
+                        <td>@item.TableItem.ItemName</td>
+                        <td>@item.Price</td>
+                        <td>@item.Quintity</td>
+                        <td>@item.Total</td>
+                        <td>@item.Discount</td>
+                        <td>@item.TheRest</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="/Admin/SalesInvoice/Delete/@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <a href="/Admin/SalesInvoice/Ditails/@item.Id" class="btn btn-outline-info btn-sm">Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
