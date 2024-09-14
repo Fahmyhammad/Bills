@@ -1,6 +1,8 @@
 ﻿@using bill_Entities.Models
+@using bill_Entities.Repoistory
 @using bill_Entities.ViewModel
 @model TypeViewModel;
+@inject ICompanyRepoistory Comp;
 
 @{
     ViewBag.PageTitle = "Type Management";
@@ -13,20 +15,24 @@
     <div class="col-md-4">
         <form asp-action="Create" asp-controller="Type" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label asp-for="type.CompanyId" class="form-label"></label>
-                <select asp-for="type.CompanyId" required class="form-control" asp-items="Model.CompanyList">
+                <label asp-for="CompanyId" class="form-label"></label>
+                <select asp-for="CompanyId" required class="form-control" >
                     <option disabled selected>--Select Company--</option>
+                    @foreach(var item in Comp.GetAll())
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
                 </select>
-                <span asp-validation-for="type.Company" class="text-danger"></span>
+                <span asp-validation-for="CompanyId" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="type.TypeName" class="form-label"></label>
-                <input asp-for="type.TypeName" required class="form-control" />
-                <span asp-validation-for="type.TypeName" class="text-danger"></span>
+                <label asp-for="TypeName" class="form-label"></label>
+                <input asp-for="TypeName" required class="form-control" />
+                <span asp-validation-for="TypeName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="type.Notes" class="form-label"></label>
-                <textarea asp-for="type.Notes" required class="form-control"></textarea>
+                <label asp-for="Notes" class="form-label"></label>
+                <textarea asp-for="Notes" required class="form-control"></textarea>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||

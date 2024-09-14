@@ -1,6 +1,6 @@
 ﻿@using bill_Entities.Models
 @using bill_Entities.ViewModel
-@model IEnumerable<Report>
+@model IEnumerable<ReportViewModel>
 
 @{
     ViewBag.PageTitle = "Report Management";
@@ -27,8 +27,8 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.ReportFrom.ToString("yyyy-MM-dd (hh:mm:ss tt)")</td>
-                        <td>@Html.Raw(item.ReportTo.ToString("yyyy-MM-dd (hh:mm:ss tt)"))</td>
+                        <td>@item.ReportFrom.ToString("yyyy-MM-dd (hh:mm tt)")</td>
+                        <td>@Html.Raw(item.ReportTo.ToString("yyyy-MM-dd (hh:mm tt)"))</td>
                        
                     </tr>
                 }

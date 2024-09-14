@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using bill_Entities.Const
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -42,137 +43,159 @@
                     <a href="/Admin/Home/Index" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown" data-toggle="dropdown">Contact <i class="fa fa-angle-down mt-1"></i></a>
-                    <div class="dropdown-menu bg-primary-text-dark">
-                        <a href="/Identity/Account/Register" class="dropdown-item">Sign In</a>
+                    <a href="#" class="nav-link dropdown-toggle" id="contactDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profile </i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="contactDropdown">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <a href="/Identity/Account/Manage" class="dropdown-item">Edit Profile</a>
-                    <li class="nav-item">
-                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-                        </form>
-                    </li>
+                            @if (User.IsInRole(Constants.Admin))
+                            {
+                                <a href="/Identity/Account/Register" class="dropdown-item">Register</a>
+                            }
+
+                            <div class="dropdown-divider"></div>
+                            <form id="logoutForm" class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" class="btn btn-danger btn-block">Logout</button>
+                            </form>
                         }
-    </div>
-    </li>
-    </ul>
-    </nav>
-    <!-- /.navbar -->
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="/Admin/Home/Index" class="brand-link">
-            <img src="/img/logo44.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Bills System</span>
-        </a>
+                    </div>
+                </li>
+            </ul>
 
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Right navbar buttons (Login/Register) -->
+            <ul class="navbar-nav ml-auto">
+                @if (!User.Identity.IsAuthenticated)
+                {
                     <li class="nav-item">
-                        <a href="/Admin/Home/Index" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>Dashboard</p>
-                        </a>
+                        <a href="/Identity/Account/Login" class="btn btn-outline-success ml-2">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Admin/Company/Index" class="nav-link">
-                            <i class="nav-icon fas fa-building"></i>
-                            <p>Company Data</p>
-                        </a>
+                        <a href="/Identity/Account/Register" class="btn btn-outline-primary ml-2">Sign Up</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/Admin/Type/Index" class="nav-link">
-                            <i class="nav-icon fas fa-tags"></i>
-                            <p>Types</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Admin/Unit/Index" class="nav-link">
-                            <i class="nav-icon fas fa-cubes"></i>
-                            <p>Units</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Admin/Item/Index" class="nav-link">
-                            <i class="nav-icon fas fa-boxes"></i>
-                            <p>Items</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Admin/Client/Index" class="nav-link">
-                            <i class="nav-icon fas fa-user-friends"></i>
-                            <p>Clients</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Admin/SalesInvoice/Index" class="nav-link">
-                            <i class="nav-icon fas fa-file-invoice"></i>
-                            <p>Sales Invoice</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Admin/Report/Index" class="nav-link">
-                            <i class="nav-icon fas fa-file-alt"></i>
-                            <p>Report</p>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-    </aside>
+                }
+            </ul>
+        </nav>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>@ViewBag.PageTitle</h1>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/Admin/Home/Index" class="brand-link">
+                <img src="/img/logo44.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">Bills System</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="/Admin/Home/Index" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Company/Index" class="nav-link">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>Company Data</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Type/Index" class="nav-link">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>Types</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Unit/Index" class="nav-link">
+                                <i class="nav-icon fas fa-cubes"></i>
+                                <p>Units</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Item/Index" class="nav-link">
+                                <i class="nav-icon fas fa-boxes"></i>
+                                <p>Items</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Client/Index" class="nav-link">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                <p>Clients</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/SalesInvoice/Index" class="nav-link">
+                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <p>Sales Invoice</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Report/Index" class="nav-link">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>Report</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>@ViewBag.PageTitle</h1>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">@ViewBag.CardTitle</h3>
+                    </div>
+                    <div class="card-body">
+                        <partial name="_ViewMessage" />
+                        @RenderBody()
                     </div>
                 </div>
-            </div><!-- /.container-fluid -->
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-            <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">@ViewBag.CardTitle</h3>
-                </div>
-                <div class="card-body">
-                    <partial name="_ViewMessage" />
-                        @RenderBody()
-                </div>
-            </div>
-            <!-- /.card -->
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.2.0
+                <!-- /.card -->
+            </section>
+            <!-- /.content -->
         </div>
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-    </footer>
+        <!-- /.content-wrapper -->
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 3.2.0
+            </div>
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Bootstrap 4 -->

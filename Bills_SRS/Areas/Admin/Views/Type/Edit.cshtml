@@ -1,7 +1,8 @@
 ﻿@using bill_Entities.Models
+@using bill_Entities.Repoistory
 @using bill_Entities.ViewModel
 @model TypeViewModel;
-
+@inject ICompanyRepoistory comp;
 @{
     ViewBag.PageTitle = "Type Management";
     ViewBag.CardTitle = "Edit Type";
@@ -12,21 +13,25 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" asp-controller="Type" method="post">
-            <input hidden asp-for="type.Id" />
+            <input hidden asp-for="Id" />
             <div class="mb-3">
-                <label asp-for="type.CompanyId" class="form-label"></label>
-                <select asp-for="type.CompanyId" class="form-control" asp-items="Model.CompanyList">
+                <label asp-for="CompanyId" class="form-label"></label>
+                <select asp-for="CompanyId" class="form-control">
                     <option disabled selected>--Select Company--</option>
+                    @foreach(var item in comp.GetAll())
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
                 </select>
             </div>
             <div class="mb-3">
-                <label asp-for="type.TypeName" class="form-label"></label>
-                <input asp-for="type.TypeName" class="form-control" />
-                <span asp-validation-for="type.TypeName" class="text-danger"></span>
+                <label asp-for="TypeName" class="form-label"></label>
+                <input asp-for="TypeName" class="form-control" />
+                <span asp-validation-for="TypeName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="type.Notes" class="form-label"></label>
-                <textarea asp-for="type.Notes" class="form-control"></textarea>
+                <label asp-for="Notes" class="form-label"></label>
+                <textarea asp-for="Notes" class="form-control"></textarea>
             </div>
             <div class="mb-3">
                 <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Type" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||

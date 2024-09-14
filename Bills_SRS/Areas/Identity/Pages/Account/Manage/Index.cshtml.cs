@@ -26,6 +26,9 @@ namespace Bills_SRS.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
+
+
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -52,6 +55,8 @@ namespace Bills_SRS.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public class InputModel
         {
+            public string Name { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -70,7 +75,9 @@ namespace Bills_SRS.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                Name = user.Name,
                 PhoneNumber = phoneNumber
+
             };
         }
 
@@ -98,6 +105,13 @@ namespace Bills_SRS.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+
+            var name = user.Name;
+            if(Input.Name != name)
+            {
+                user.Name = Input.Name;
+                await _userManager.UpdateAsync(user);
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);

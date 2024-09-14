@@ -1,7 +1,8 @@
 ﻿@using bill_Entities.Models
 @using bill_Entities.ViewModel
 @model ItemViewModel;
-
+@inject bill_Entities.Repoistory.ICompanyRepoistory Comp;
+@inject bill_Entities.Repoistory.ITypeRepoistory Type;
 @{
     ViewBag.PageTitle = "Item Management";
     ViewBag.CardTitle = "Edit Item";
@@ -12,39 +13,48 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" asp-controller="Item" method="post">
-            <input hidden asp-for="item.Id" />
+            <input hidden asp-for="Id" />
             <div class="mb-3">
-                <label asp-for="item.CompanyId" class="form-label"></label>
-                <select asp-for="item.CompanyId" required class="form-control" asp-items="Model.CompanyList">
-                    <option disabled selected>--Select Company--</option>
+                <label asp-for="CompanyId" class="form-label"></label>
+                <select asp-for="CompanyId" required class="form-control" >
+                    <option disabled >--Select Company--</option>
+                    @foreach (var item in Comp.GetAll())
+                    {
+                        <option value="@item.Id">@item.Name</option>
+
+                    }
                 </select>
-                <span asp-validation-for="item.company" class="text-danger"></span>
+                <span asp-validation-for="company" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="item.TypeId" class="form-label"></label>
-                <select asp-for="item.TypeId" required class="form-control" asp-items="Model.TypeList">
-                    <option disabled selected>--Select Type--</option>
+                <label asp-for="TypeId" class="form-label"></label>
+                <select asp-for="TypeId" required class="form-control">
+                    <option disabled >--Select Type--</option>
+                    @foreach (var item in Type.GetAll())
+                    {
+                        <option value="@item.Id">@item.TypeName</option>
+                    }
                 </select>
-                <span asp-validation-for="item.type" class="text-danger"></span>
+                <span asp-validation-for="type" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="item.ItemName" class="form-label"></label>
-                <input asp-for="item.ItemName" required class="form-control" />
-                <span asp-validation-for="item.ItemName" class="text-danger"></span>
+                <label asp-for="ItemName" class="form-label"></label>
+                <input asp-for="ItemName" required class="form-control" />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="item.SellingPrice" class="form-label"></label>
-                <input asp-for="item.SellingPrice" required class="form-control" />
-                <span asp-validation-for="item.SellingPrice" class="text-danger"></span>
+                <label asp-for="SellingPrice" class="form-label"></label>
+                <input asp-for="SellingPrice" required class="form-control" />
+                <span asp-validation-for="SellingPrice" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="item.BuyingPrice" class="form-label"></label>
-                <input asp-for="item.BuyingPrice" required class="form-control" />
-                <span asp-validation-for="item.BuyingPrice" class="text-danger"></span>
+                <label asp-for="BuyingPrice" class="form-label"></label>
+                <input asp-for="BuyingPrice" required class="form-control" />
+                <span asp-validation-for="BuyingPrice" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="item.Notes" class="form-label"></label>
-                <textarea asp-for="item.Notes" required class="form-control"></textarea>
+                <label asp-for="Notes" class="form-label"></label>
+                <textarea asp-for="Notes" required class="form-control"></textarea>
             </div>
             <div class="mb-3">
                 <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Item" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||

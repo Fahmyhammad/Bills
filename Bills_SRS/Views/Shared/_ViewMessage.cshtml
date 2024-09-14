@@ -49,4 +49,12 @@
         toastr["error"](ViewBig, "Error..")
     </script>
 }
-
+    
+@if (TempData["ErrorMessage"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr["error"]("@TempData["ErrorMessage"]", "Error..")
+    </script>
+}

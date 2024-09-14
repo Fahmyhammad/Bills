@@ -8,9 +8,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using bill_Entities.Models;
 using System.Threading;
 using System.Threading.Tasks;
+using bill_Entities.Const;
+using bill_Entities.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -75,21 +76,18 @@ namespace Bills_SRS.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            /// 
-
-
-            [Required]
-            public string Name { get; set; }
-            [Required]
-            public string Address { get; set; }
-            public string City { get; set; }
-
-
-
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            public string Name {  get; set; }
+
+            [Required]
+            public string Address { get; set; }
+
+            public string City { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -120,41 +118,30 @@ namespace Bills_SRS.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/Admin/Home/Index");
+            returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
 
+                user.Name = Input.Name;
+                user.Address = Input.Address;
+                user.City = Input.City;
+
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-
-                // تحقق من القيم الفارغة
-                if (!string.IsNullOrEmpty(Input.City))
-                {
-                    user.City = Input.City ?? "غير معروف";
-                }
-
-                if (!string.IsNullOrEmpty(Input.Address))
-                {
-                    user.Address = Input.Address ?? "غير معروف";
-                }
-
-                if (!string.IsNullOrEmpty(Input.Name))
-                {
-                    user.Name = Input.Name ?? "غير معروف";
-                }
-
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+
                     string role = HttpContext.Request.Form["RoleRadio"].ToString();
 
                     if (String.IsNullOrEmpty(role))
                     {
+                        await _userManager.AddToRoleAsync(user, Constants.User);
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
@@ -162,7 +149,8 @@ namespace Bills_SRS.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, role);
                     }
-                    return RedirectToAction("Index", "Users", new { area = "Admin" });
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -179,6 +167,11 @@ namespace Bills_SRS.Areas.Identity.Pages.Account
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    }
+                    else
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return LocalRedirect(returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)
