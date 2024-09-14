@@ -1,6 +1,7 @@
 ﻿using bill_DataAccess.Data;
 using bill_Entities.Models;
 using bill_Entities.Repoistory;
+using bill_Entities.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace bill_DataAccess.Implementation
             _db = db;
         }
 
-        public bool UnitsName(Unit unit)
+        public bool UnitsName(UnitViewModel unit)
         {
             bool result = _db.units.Any(x=>x.UnitName == unit.UnitName && x.Id != unit.Id);
             return result;
@@ -30,6 +31,8 @@ namespace bill_DataAccess.Implementation
             {
                 value.UnitName = unit.UnitName;
                 value.Notes = unit.Notes;
+
+                _db.SaveChanges();
             }
         }
     }

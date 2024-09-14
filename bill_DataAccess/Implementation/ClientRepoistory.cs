@@ -1,6 +1,8 @@
-﻿using bill_DataAccess.Data;
+﻿using AutoMapper;
+using bill_DataAccess.Data;
 using bill_Entities.Models;
 using bill_Entities.Repoistory;
+using bill_Entities.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace bill_DataAccess.Implementation
             _db = db;
         }
 
-        public bool ClientName(Client client)
+        public bool ClientName(ClientViewModel client)
         {
             var result = _db.Clients.Any(x => x.ClientName == client.ClientName && x.Id != client.Id);
             return result;
@@ -38,6 +40,8 @@ namespace bill_DataAccess.Implementation
                 result.Address = client.Address;
                 result.Number = client.Number;
                 result.Phone = client.Phone;
+
+                 _db.SaveChanges();
             }
         }
     }

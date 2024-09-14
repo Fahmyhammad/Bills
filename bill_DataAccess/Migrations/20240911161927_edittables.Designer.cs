@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using bill_DataAccess.Data;
 
@@ -11,9 +12,11 @@ using bill_DataAccess.Data;
 namespace bill_DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240911161927_edittables")]
+    partial class edittables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,7 +260,7 @@ namespace bill_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("bill_Entities.Models.Company", b =>
@@ -278,7 +281,7 @@ namespace bill_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("companies", (string)null);
+                    b.ToTable("companies");
                 });
 
             modelBuilder.Entity("bill_Entities.Models.Report", b =>
@@ -302,7 +305,7 @@ namespace bill_DataAccess.Migrations
 
                     b.HasIndex("SalesId");
 
-                    b.ToTable("Reports", (string)null);
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("bill_Entities.Models.SalesInvoice", b =>
@@ -352,7 +355,7 @@ namespace bill_DataAccess.Migrations
 
                     b.HasIndex("TableItemId");
 
-                    b.ToTable("salesInvoices", (string)null);
+                    b.ToTable("salesInvoices");
                 });
 
             modelBuilder.Entity("bill_Entities.Models.Types", b =>
@@ -378,7 +381,7 @@ namespace bill_DataAccess.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Types", (string)null);
+                    b.ToTable("Types");
                 });
 
             modelBuilder.Entity("bill_Entities.Models.Unit", b =>
@@ -399,7 +402,7 @@ namespace bill_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("units", (string)null);
+                    b.ToTable("units");
                 });
 
             modelBuilder.Entity("bill_Entities.Models.tableItem", b =>
@@ -436,7 +439,7 @@ namespace bill_DataAccess.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Items", (string)null);
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

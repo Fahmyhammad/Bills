@@ -1,6 +1,7 @@
 ﻿using bill_DataAccess.Data;
 using bill_Entities.Models;
 using bill_Entities.Repoistory;
+using bill_Entities.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,9 @@ namespace bill_DataAccess.Implementation
             _db = db;
         }
 
-        public bool CompanyName(Company company)
+      
+
+        public bool CompanyName(CompanyViewModel company)
         {
             bool result = _db.companies.Any(x => x.Name == company.Name && x.Id != company.Id);
             return result;
@@ -31,6 +34,9 @@ namespace bill_DataAccess.Implementation
             {
                 result.Name = company.Name;
                 result.Notes = company.Notes;
+
+                await _db.SaveChangesAsync();
+
             }
         }
     }

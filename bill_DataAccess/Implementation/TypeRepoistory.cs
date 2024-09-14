@@ -1,6 +1,7 @@
 ﻿using bill_DataAccess.Data;
 using bill_Entities.Models;
 using bill_Entities.Repoistory;
+using bill_Entities.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace bill_DataAccess.Implementation
             _db = db;
         }
 
-        public bool TypeName(Types types)
+        public bool TypeName(TypeViewModel types)
         {
             bool result = _db.Types.Any(x => x.TypeName == types.TypeName && x.Id != types.Id);
             return result;
@@ -32,6 +33,8 @@ namespace bill_DataAccess.Implementation
                 value.TypeName = types.TypeName;
                 value.Notes = types.Notes;
                 value.CompanyId = types.CompanyId;
+
+               await _db.SaveChangesAsync();
             }
         }
     }

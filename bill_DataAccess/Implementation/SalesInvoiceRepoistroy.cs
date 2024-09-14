@@ -59,6 +59,8 @@ namespace bill_DataAccess.Implementation
                 value.Quintity = salesInvoice.Quintity;
                 value.Discount = salesInvoice.Discount;
                 value.PaidUp = salesInvoice.PaidUp;
+
+                 _db.SaveChanges();
             }
         }
     }

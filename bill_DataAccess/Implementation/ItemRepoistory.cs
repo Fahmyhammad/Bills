@@ -1,6 +1,7 @@
 ﻿using bill_DataAccess.Data;
 using bill_Entities.Models;
 using bill_Entities.Repoistory;
+using bill_Entities.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace bill_DataAccess.Implementation
             _db = db;
         }
 
-        public bool ItemName(tableItem item)
+        public bool ItemName(ItemViewModel item)
         {
             bool result = _db.Items.Any(x => x.ItemName == item.ItemName && x.Id != item.Id);
             return result;
@@ -34,6 +35,8 @@ namespace bill_DataAccess.Implementation
                 result.BuyingPrice = item.BuyingPrice;
                 result.CompanyId = item.CompanyId;
                 result.TypeId = item.TypeId;
+
+                _db.SaveChanges();
             }
         }
     }
