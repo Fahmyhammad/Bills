@@ -1,14 +1,20 @@
+<<<<<<< HEAD
 ﻿using AutoMapper;
 using bill_Entities.Const;
 using bill_Entities.Models;
 using bill_Entities.Repoistory;
 using bill_Entities.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+=======
+﻿using bill_Entities.Models;
+using bill_Entities.Repoistory;
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Bills_SRS.Areas.Admin.Controllers
 {
+<<<<<<< HEAD
     [Area(Constants.Admin)]
     public class UnitController(IUnitOfWork db, IMapper mapper) : Controller
     {
@@ -24,14 +30,33 @@ namespace Bills_SRS.Areas.Admin.Controllers
             return View(allData);
         }
         [Authorize(Roles = "Admin,Editor")]
+=======
+    [Area("Admin")]
+    public class UnitController : Controller
+    {
+        private readonly IUnitOfWork _db;
+        public UnitController(IUnitOfWork db)
+        {
+            _db = db;
+        }
+        public IActionResult Index()
+        {
+            var result = _db.unitss.GetAll();
+            return View(result);
+        }
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+<<<<<<< HEAD
         [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Create(UnitViewModel unit)
+=======
+        public async Task<IActionResult> Create(Unit unit)
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
         {
             if (unit != null)
             {
@@ -41,9 +66,13 @@ namespace Bills_SRS.Areas.Admin.Controllers
                     TempData["ErrorName"] = "The company name already exists.";
                     return RedirectToAction(nameof(Index));
                 }
+<<<<<<< HEAD
                 var entityData = _mapper.Map<Unit>(unit);
 
                 _db.unitss.Add(entityData);
+=======
+                _db.unitss.Add(unit);
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
                 await _db.Complete();
                 TempData["Create"] = "Create Unit";
                 return RedirectToAction("Index");
@@ -51,7 +80,11 @@ namespace Bills_SRS.Areas.Admin.Controllers
 
             return View(unit);
         }
+<<<<<<< HEAD
         [Authorize(Roles = "Admin,Editor")]
+=======
+
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
         public IActionResult Edit(int id)
         {
             if (id == 0 || id == null)
@@ -59,6 +92,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 return NotFound();
             }
             var value = _db.unitss.GetById(x => x.Id == id);
+<<<<<<< HEAD
             if(value == null)
             {
                 return NotFound();
@@ -70,6 +104,13 @@ namespace Bills_SRS.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Editor")]
         public async Task<IActionResult> Edit(UnitViewModel unit)
+=======
+            return View(value);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Unit unit)
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
         {
             if (unit != null)
             {
@@ -86,7 +127,10 @@ namespace Bills_SRS.Areas.Admin.Controllers
                     value.UnitName = unit.UnitName;
                     value.Notes = unit.Notes;
 
+<<<<<<< HEAD
                     _mapper.Map(unit, value);
+=======
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
 
                     _db.unitss.UpDate(value);
                     await _db.Complete();
@@ -98,7 +142,10 @@ namespace Bills_SRS.Areas.Admin.Controllers
 
             return View(unit);
         }
+<<<<<<< HEAD
         [Authorize(Roles = Constants.Admin)]
+=======
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
         public IActionResult Delete(int id)
         {
             if (id == 0 || id == null)
@@ -110,6 +157,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+<<<<<<< HEAD
         [Authorize(Roles = Constants.Admin)]
         public async Task<IActionResult> DeleteUnit(int id)
         {
@@ -131,6 +179,19 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             
+=======
+        public async Task<IActionResult> DeleteUnit(int id)
+        {
+            var value = _db.unitss.GetById(x => x.Id == id);
+            if (value == null)
+            {
+                return NotFound();
+            }
+            _db.unitss.Delete(value);
+            await _db.Complete();
+            TempData["Delete"] = "Delete Unit";
+            return RedirectToAction("Index");
+>>>>>>> 7ee9e6f3704b6ad185026200ad492c1c0f1e7183
 
         }
 
