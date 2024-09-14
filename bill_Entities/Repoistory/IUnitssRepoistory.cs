@@ -1,4 +1,5 @@
 ﻿using bill_Entities.Models;
+using bill_Entities.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace bill_Entities.Repoistory
     {
         void UpDate(Unit unit);
 
-        bool UnitsName(Unit unit);
+        bool UnitsName(UnitViewModel unit);
     }
 }

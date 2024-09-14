@@ -1,4 +1,5 @@
 ﻿using bill_Entities.Models;
+using bill_Entities.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace bill_Entities.Repoistory
     {
 
         void UpDate(Company company);
-        bool CompanyName(Company company);
+        bool CompanyName(CompanyViewModel company);
 
     }
 }
