@@ -27,16 +27,15 @@ namespace bill_DataAccess.Implementation
             return result;
         }
 
-        public async void UpDate(Company company)
+        public void UpDate(Company company)
         {
-            var result = await _db.companies.FirstOrDefaultAsync(x => x.Id == company.Id);
+            var result =  _db.companies.FirstOrDefault(x => x.Id == company.Id);
             if (result != null)
             {
                 result.Name = company.Name;
                 result.Notes = company.Notes;
 
-                await _db.SaveChangesAsync();
-
+                 _db.SaveChanges();
             }
         }
     }

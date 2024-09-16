@@ -60,7 +60,10 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 return NotFound();
             }
             var value = _db.company.GetById(x => x.Id == id);
-            return View(value);
+            if (value == null)
+                return NotFound();
+            var DataVM = _mapper.Map<CompanyViewModel>(value);
+            return View(DataVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -98,7 +101,10 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 return NotFound();
             }
             var value = _db.company.GetById(x => x.Id == id);
-            return View(value);
+            if (value == null)
+                return NotFound();
+            var DataVM = _mapper.Map<CompanyViewModel>(value);
+            return View(DataVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
