@@ -1,4 +1,5 @@
-﻿@model Client;
+﻿@using bill_Entities.ViewModel
+@model ClientViewModel;
 @{
     ViewBag.PageTitle = "Client Management";
     ViewBag.CardTitle = "Edit Client";
@@ -7,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post">
+        <form asp-action="Edit" onsubmit="validateNum(event)" method="post">
             <input hidden asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
@@ -17,8 +18,8 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Phone" class="form-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+                <input asp-for="Phone" onclick="validateNum(event)" id="Num" class="form-control" />
+                <span asp-validation-for="Phone" id="error" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Number" class="form-label"></label>
@@ -37,6 +38,25 @@
         </form>
     </div>
 </div>
+
+
+<script>
+    function validateNum(event) {
+
+        var inputField = document.getElementById("Num");
+        var value = inputField.value;
+        if (isNaN(value) || value === "") {
+            document.getElementById("error").innerHTML = "Please enter a valid number!";
+            event.preventDefault();
+        }
+        else {
+            document.getElementById("error").innerHTML = "";
+        }
+    }
+
+</script>
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

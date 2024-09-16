@@ -60,7 +60,12 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 return NotFound();
             }
             var value = _db.client.GetById(x => x.Id == id);
-            return View(value);
+            if (value == null)
+                return NotFound();
+
+            var DataVM = _mapper.Map<ClientViewModel>(value);
+
+            return View(DataVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
