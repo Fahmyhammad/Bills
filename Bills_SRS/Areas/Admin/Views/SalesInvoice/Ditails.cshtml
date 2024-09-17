@@ -3,8 +3,8 @@
 @model SalesViewModel
 
 @{
-    ViewBag.PageTitle = "Bill Management";
-    ViewBag.CardTitle = "Bill Ditails";
+    ViewBag.PageTitle = @SharedLocalizer["BillManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["Details"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -13,21 +13,21 @@
     <div class="card-body">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="font-weight-bold">Thank you for your purchase</h2>
+                <h2 class="font-weight-bold">@SharedLocalizer["Thankyou"]</h2>
             </div>
             <form asp-action="Ditails" asp-controller="SalesInvoice" method="post">
                 <input type="hidden" asp-for="@Model.SalesInvoices.Id" />
                 <div class="row mb-4">
                     <div class="col-md-4">
-                        <h5 class="text-muted">Client Name:</h5>
+                        <h5 class="text-muted">@SharedLocalizer["ClientName"]:</h5>
                         <p class="font-weight-bold">@Model.SalesInvoices.client.ClientName</p>
                     </div>
                     <div class="col-md-4">
-                        <h5 class="text-muted">Invoice:</h5>
+                        <h5 class="text-muted">@SharedLocalizer["Number"]:</h5>
                         <p class="font-weight-bold">@Model.SalesInvoices.BillsCode</p>
                     </div>
                     <div class="col-md-4">
-                        <h5 class="text-muted">Date:</h5>
+                        <h5 class="text-muted">@SharedLocalizer["Date"]:</h5>
                         <p class="font-weight-bold">@Model.SalesInvoices.DateTime.ToString("dd/MM/yyyy")</p>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-10">
-                        <h5 class="text-muted">Quantity:</h5>
+                        <h5 class="text-muted">@SharedLocalizer["Quantity"]:</h5>
                     </div>
                     <div class="col-md-2 text-right">
                         <p class="font-weight-bold">@Model.SalesInvoices.Quintity</p>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-10">
-                        <h5 class="text-muted">Total:</h5>
+                        <h5 class="text-muted">@SharedLocalizer["Total"]:</h5>
                     </div>
                     <div class="col-md-2 text-right">
                         <p class="font-weight-bold">$@Model.SalesInvoices.Total</p>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-10">
-                        <h5 class="text-muted">Discount:</h5>
+                        <h5 class="text-muted">@SharedLocalizer["Discount"]:</h5>
                     </div>
                     <div class="col-md-2 text-right">
                         <p class="font-weight-bold">$@Model.SalesInvoices.Discount</p>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <h4 class="font-weight-bold">Net Total: $@Model.SalesInvoices.NetPrice</h4>
+                        <h4 class="font-weight-bold">@SharedLocalizer["NetTotal"]: $@Model.SalesInvoices.NetPrice</h4>
                     </div>
                     <div class="col-md-12">
                         <hr class="border-dark">

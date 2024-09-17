@@ -3,8 +3,8 @@
 @model IEnumerable<ReportViewModel>
 
 @{
-    ViewBag.PageTitle = "Report Management";
-    ViewBag.CardTitle = "Report List";
+    ViewBag.PageTitle = @SharedLocalizer["ReportManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["ReportList"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="container">
@@ -18,8 +18,8 @@
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
+                    <th scope="col"> @SharedLocalizer["From"]</th>
+                    <th scope="col"> @SharedLocalizer["To"]</th>
 
                 </tr>
             </thead>

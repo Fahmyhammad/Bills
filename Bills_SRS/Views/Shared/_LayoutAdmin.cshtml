@@ -1,4 +1,9 @@
-﻿@using bill_Entities.Const
+﻿@using Azure.Core
+@using bill_Entities.Const
+@{
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,24 +45,24 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/Admin/Home/Index" class="nav-link">Home</a>
+                    <a href="/Admin/Home/Index" class="nav-link">@SharedLocalizer["Home"]</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="contactDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profile </i>
+                        @SharedLocalizer["Profile"] </i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="contactDropdown">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a href="/Identity/Account/Manage" class="dropdown-item">Edit Profile</a>
+                            <a href="/Identity/Account/Manage" class="dropdown-item">@SharedLocalizer["EditProfile"]</a>
                             @if (User.IsInRole(Constants.Admin))
                             {
-                                <a href="/Identity/Account/Register" class="dropdown-item">Register</a>
+                                <a href="/Identity/Account/Register" class="dropdown-item">@SharedLocalizer["SignUp"]</a>
                             }
 
                             <div class="dropdown-divider"></div>
                             <form id="logoutForm" class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                <button type="submit" class="btn btn-danger btn-block">Logout</button>
+                                <button type="submit" class="btn btn-danger btn-block">@SharedLocalizer["Logout"]</button>
                             </form>
                         }
                     </div>
@@ -66,13 +71,39 @@
 
             <!-- Right navbar buttons (Login/Register) -->
             <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="contactDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @if (Culture == "ar-EG")
+                        {
+                            <span>عربي</span>
+                        }
+                        else
+                        {
+                            <span>English</span>
+                        }
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="contactDropdown">
+                        <li>
+                            <a class="dropdown-item" asp-route-culture="en-US">
+                                English
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-route-culture="ar-EG">
+                                عربي
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 @if (!User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item">
-                        <a href="/Identity/Account/Login" class="btn btn-outline-success ml-2">Log In</a>
+                        <a href="/Identity/Account/Login" class="btn btn-outline-success ml-2">@SharedLocalizer["Login"]</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Identity/Account/Register" class="btn btn-outline-primary ml-2">Sign Up</a>
+                        <a href="/Identity/Account/Register" class="btn btn-outline-primary ml-2">@SharedLocalizer["SignUp"]</a>
                     </li>
                 }
             </ul>
@@ -84,7 +115,7 @@
             <!-- Brand Logo -->
             <a href="/Admin/Home/Index" class="brand-link">
                 <img src="/img/logo44.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Bills System</span>
+                <span class="brand-text font-weight-light">@SharedLocalizer["BillsSystem"]</span>
             </a>
 
             <!-- Sidebar -->
@@ -95,49 +126,49 @@
                         <li class="nav-item">
                             <a href="/Admin/Home/Index" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
+                                <p>@SharedLocalizer["Dashboard"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Company/Index" class="nav-link">
                                 <i class="nav-icon fas fa-building"></i>
-                                <p>Company Data</p>
+                                <p>@SharedLocalizer["Companys"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Type/Index" class="nav-link">
                                 <i class="nav-icon fas fa-tags"></i>
-                                <p>Types</p>
+                                <p>@SharedLocalizer["Types"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Unit/Index" class="nav-link">
                                 <i class="nav-icon fas fa-cubes"></i>
-                                <p>Units</p>
+                                <p>@SharedLocalizer["Unitss"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Item/Index" class="nav-link">
                                 <i class="nav-icon fas fa-boxes"></i>
-                                <p>Items</p>
+                                <p>@SharedLocalizer["Items"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Client/Index" class="nav-link">
                                 <i class="nav-icon fas fa-user-friends"></i>
-                                <p>Clients</p>
+                                <p>@SharedLocalizer["Clients"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/SalesInvoice/Index" class="nav-link">
                                 <i class="nav-icon fas fa-file-invoice"></i>
-                                <p>Sales Invoice</p>
+                                <p>@SharedLocalizer["SalesInvoice"]</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Report/Index" class="nav-link">
                                 <i class="nav-icon fas fa-file-alt"></i>
-                                <p>Report</p>
+                                <p>@SharedLocalizer["Report"]</p>
                             </a>
                         </li>
                     </ul>

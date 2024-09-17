@@ -1,8 +1,8 @@
 ﻿@using bill_Entities.ViewModel
 @model UnitViewModel;
 @{
-    ViewBag.PageTitle = "Unit Management";
-    ViewBag.CardTitle = "Edit Unit";
+    ViewBag.PageTitle = @SharedLocalizer["UnitManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["EditData"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -12,17 +12,17 @@
             <input hidden asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="UnitName"></label>
+                <label>@SharedLocalizer["TextName"]</label>
                 <input asp-for="UnitName" class="form-control" />
                 <span asp-validation-for="UnitName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Notes"></label>
+                <label>@SharedLocalizer["NotesCompent"]</label>
                 <textarea asp-for="Notes" class="form-control"></textarea>
             </div>
             <div class="mb-3">
-                <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Unit" class="btn btn-outline-success" style="width:120px; height:40px;">Edit</button> ||
-                <a asp-action="Index" asp-controller="Unit" class="btn btn-outline-danger" style="width:120px; height:40px;">Go To Home</a>
+                <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Unit" class="btn btn-outline-success" style="width:120px; height:40px;">@SharedLocalizer["btnEdit"]</button> ||
+                <a asp-action="Index" asp-controller="Unit" class="btn btn-outline-danger" style="width:120px; height:40px;">@SharedLocalizer["btnGoHome"]</a>
             </div>
         </form>
     </div>

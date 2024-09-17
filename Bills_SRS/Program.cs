@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using bill_Entities.Models;
 using bill_DataAccess.Seed;
 using bill_Entities.Mapper;
+using Microsoft.AspNetCore.Localization;
+using bill_Entities.ServicesRegistrations;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,17 +23,30 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultUI().AddDefaultTokenProviders();
 
+// My Services 
+builder.Services.AddServicesRegistrations();
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<ICompanyRepoistory, CompanyRepoistory>();
-builder.Services.AddScoped<ITypeRepoistory, TypeRepoistory>();
-builder.Services.AddScoped<IItemRepoistory, ItemRepoistory>();
-builder.Services.AddScoped<IClientRepoistory, ClientRepoistory>();
-builder.Services.AddScoped<ISalesInvoiceRepoistory, SalesInvoiceRepoistroy>();
-builder.Services.AddScoped<IUnitssRepoistory, UnitssRepoistory>();
 
-builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+.AddDataAnnotationsLocalization();
+
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "");
+
+
+var supportedCultures = new[] {
+      new CultureInfo("ar-EG"),
+      new CultureInfo("en-US"),
+};
+
+
+
+
+
+
+
 
 
 var app = builder.Build();
@@ -45,6 +63,21 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-US"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+    RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                new QueryStringRequestCultureProvider(),
+                new CookieRequestCultureProvider()
+                }
+});
+
+
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();

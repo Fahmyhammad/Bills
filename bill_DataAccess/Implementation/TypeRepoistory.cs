@@ -25,16 +25,16 @@ namespace bill_DataAccess.Implementation
             return result;
         }
 
-        public async void UpDate(Types types)
+        public void UpDate(Types types)
         {
-           var value = await _db.Types.FirstOrDefaultAsync(x=>x.Id == types.Id);
+           var value =  _db.Types.FirstOrDefault(x=>x.Id == types.Id);
             if (value != null)
             {
                 value.TypeName = types.TypeName;
                 value.Notes = types.Notes;
                 value.CompanyId = types.CompanyId;
 
-               await _db.SaveChangesAsync();
+                _db.SaveChanges();
             }
         }
     }

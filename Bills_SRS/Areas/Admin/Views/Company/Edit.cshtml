@@ -1,8 +1,13 @@
 ﻿@using bill_Entities.ViewModel
+@{
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+}
+@inject IStringLocalizer<SharedResource> SharedLocalizer
+
 @model CompanyViewModel;
 @{
-    ViewBag.PageTitle = "Company Management";
-    ViewBag.CardTitle = "Edit Company";
+    ViewBag.PageTitle = @SharedLocalizer["CompanyManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["EditData"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -12,17 +17,17 @@
             <input hidden asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="Name"></label>
+                <label>@SharedLocalizer["TextName"]</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Notes"></label>
+                <label>@SharedLocalizer["NotesCompent"]</label>
                 <textarea asp-for="Notes" class="form-control"></textarea>
             </div>
             <div class="mb-3">
-                <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Company" class="btn btn-outline-success" style="width:120px; height:40px;">Edit</button> ||
-                <a asp-action="Index" asp-controller="Company" class="btn btn-outline-danger" style="width:120px; height:40px;">Go To Home</a>
+                <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Company" class="btn btn-outline-success" style="width:120px; height:40px;">@SharedLocalizer["btnEdit"]</button> ||
+                <a asp-action="Index" asp-controller="Company" class="btn btn-outline-danger" style="width:120px; height:40px;">@SharedLocalizer["btnGoHome"]</a>
             </div>
         </form>
     </div>

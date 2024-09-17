@@ -1,8 +1,8 @@
 ﻿@model Types
 
 @{
-    ViewBag.PageTitle = "Type Management";
-    ViewBag.CardTitle = "Delete Type";
+    ViewBag.PageTitle = @SharedLocalizer["TypeManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["DeleteData"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -13,17 +13,17 @@
             <input hidden asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="TypeName"></label>
+                <label>@SharedLocalizer["TypeName"];</label>
                 <input asp-for="TypeName" disabled class="form-control" />
                 <span asp-validation-for="TypeName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Notes"></label>
+                <label>@SharedLocalizer["NotesCompent"];</label>
                 <input asp-for="Notes" disabled class="form-control" />
             </div>
             <div class="mb-3">
-                <button type="submit" asp-area="Admin" asp-action="Deletetypes" asp-controller="Type" class="btn btn-outline-danger" style="width:120px; height:40px;">Delete</button> ||
-                <a asp-action="Index" asp-controller="Type" class="btn btn-outline-success" style="width:120px; height:40px;">Go To Home</a>
+                <button type="submit" asp-area="Admin" asp-action="Deletetypes" asp-controller="Type" class="btn btn-outline-danger" style="width:120px; height:40px;">@SharedLocalizer["btnDelete"];</button> ||
+                <a asp-action="Index" asp-controller="Type" class="btn btn-outline-success" style="width:120px; height:40px;">@SharedLocalizer["btnGoHome"];</a>
             </div>
         </form>
     </div>

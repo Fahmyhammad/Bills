@@ -3,8 +3,8 @@
 @model SalesInvoice
 
 @{
-    ViewBag.PageTitle = "Bill Management";
-    ViewBag.CardTitle = "Delete Bill";
+    ViewBag.PageTitle = @SharedLocalizer["BillManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["DeleteData"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -15,25 +15,25 @@
             <input hidden asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="@Model.BillsCode"></label>
+                <label>@SharedLocalizer["Number"]</label>
                 <input asp-for="@Model.BillsCode" disabled class="form-control" />
                 <span asp-validation-for="@Model.BillsCode" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.Price"></label>
+                <label>@SharedLocalizer["Price"]</label>
                 <input asp-for="@Model.Price" disabled class="form-control" />
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.Total"></label>
+                <label>@SharedLocalizer["Total"]</label>
                 <input asp-for="@Model.Total" disabled class="form-control" />
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.NetPrice"></label>
+                <label>@SharedLocalizer["NetTotal"]</label>
                 <input asp-for="@Model.NetPrice" disabled class="form-control" />
             </div>
             <div class="mb-3">
-                <button type="submit"  class="btn btn-outline-danger" style="width:120px; height:40px;">Delete</button> ||
-                <a asp-action="Index" asp-controller="SalesInvoice" class="btn btn-outline-success" style="width:120px; height:40px;">Go To Home</a>
+                <button type="submit" class="btn btn-outline-danger" style="width:120px; height:40px;">@SharedLocalizer["btnDelete"]</button> ||
+                <a asp-action="Index" asp-controller="SalesInvoice" class="btn btn-outline-success" style="width:120px; height:40px;">@SharedLocalizer["btnGoHome"]</a>
             </div>
         </form>
     </div>

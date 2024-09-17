@@ -1,8 +1,8 @@
 ﻿@model Client
 
 @{
-    ViewBag.PageTitle = "Client Management";
-    ViewBag.CardTitle = "Delete Client";
+    ViewBag.PageTitle = @SharedLocalizer["ClientManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["DeleteData"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -13,28 +13,28 @@
             <input hidden asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="ClientName"></label>
+                <label> @SharedLocalizer["TextName"]</label>
                 <input asp-for="ClientName" disabled class="form-control" />
                 <span asp-validation-for="ClientName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Phone"></label>
+                <label> @SharedLocalizer["Phone"]</label>
                 <input asp-for="Phone" disabled class="form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Number"></label>
+                <label> @SharedLocalizer["Number"]</label>
                 <input asp-for="Number" disabled class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Address"></label>
+                <label> @SharedLocalizer["Address"]</label>
                 <input asp-for="Address" disabled class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <button type="submit" asp-area="Admin" asp-action="DeleteClient" asp-controller="Client" class="btn btn-outline-danger" style="width:120px; height:40px;">Delete</button> ||
-                <a asp-action="Index" asp-controller="Client" class="btn btn-outline-success" style="width:120px; height:40px;">Go To Home</a>
+                <button type="submit" asp-area="Admin" asp-action="DeleteClient" asp-controller="Client" class="btn btn-outline-danger" style="width:120px; height:40px;">@SharedLocalizer["btnDelete"]</button> ||
+                <a asp-action="Index" asp-controller="Client" class="btn btn-outline-success" style="width:120px; height:40px;">@SharedLocalizer["btnGoHome"]</a>
             </div>
         </form>
     </div>

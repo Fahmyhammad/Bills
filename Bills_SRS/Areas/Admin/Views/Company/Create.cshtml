@@ -3,8 +3,8 @@
 @model CompanyViewModel
 
 @{
-    ViewBag.PageTitle = "Company Management";
-    ViewBag.CardTitle = "Create Company";
+    ViewBag.PageTitle = @SharedLocalizer["CompanyManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["CreateData"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -13,17 +13,17 @@
     <div class="col-md-4">
         <form asp-action="Create" asp-controller="Company" method="post">
             <div class="mb-3">
-                <label asp-for="Name" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["TextName"]</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Notes" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["NotesCompent"]</label>
                 <textarea asp-for="Notes" class="form-control"></textarea>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||
-                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Company">Go To Home</a>
+                <button type="submit" class="btn btn-outline-success" style="width:120px;height:40px">@SharedLocalizer["btnSave"]</button> ||
+                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Company">@SharedLocalizer["btnGoHome"]</a>
             </div>
         </form>
     </div>

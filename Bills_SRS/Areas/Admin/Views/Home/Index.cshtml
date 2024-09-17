@@ -1,6 +1,11 @@
 ﻿@{
-    ViewBag.PageTitle = "Admin";
-    ViewBag.CardTitle = "Manage";
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+}
+@inject IStringLocalizer<SharedResource> SharedLocalizer
+
+ @{
+    ViewBag.PageTitle = @SharedLocalizer["Admin"];
+    ViewBag.CardTitle = @SharedLocalizer["Manage"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,11 +21,11 @@
                     <div class="row text-white">
                         <div class="col-6">
                             <h1><i class="fa fa-usd background-round text-white p-2 font-medium-3"></i></h1>
-                            <h4 class="pt-1 m-0 text-white">Count: @ViewBag.Bills</h4>
+                            <h4 class="pt-1 m-0 text-white">@SharedLocalizer["Count"]: @ViewBag.Bills</h4>
                         </div>
                         <div class="col-6 text-right pl-0">
-                            <h4 class="text-white mb-2">Bills</h4>
-                            <span>More info</span>
+                            <h4 class="text-white mb-2">@SharedLocalizer["Bills"]</h4>
+                            <span>@SharedLocalizer["Moreinfo"]</span>
                             <br>
                             <span><a href="/Admin/SalesInvoice/Index" class="text-white"><i class="fas fa-arrow-circle-right"></i></a></span>
                             <br>
@@ -37,11 +42,11 @@
                     <div class="row text-white">
                         <div class="col-6">
                             <h1><i class="fa fa-building-o background-round text-white p-2 font-medium-3"></i></h1>
-                            <h4 class="pt-1 m-0 text-white">Count: @ViewBag.Company</h4>
+                            <h4 class="pt-1 m-0 text-white">@SharedLocalizer["Count"]: @ViewBag.Company</h4>
                         </div>
                         <div class="col-6 text-right pl-0">
-                            <h4 class="text-white mb-2">Companies</h4>
-                            <span>More info</span>
+                            <h4 class="text-white mb-2">@SharedLocalizer["Companies"]</h4>
+                            <span>@SharedLocalizer["Moreinfo"]</span>
                             <br>
                             <span><a href="/Admin/Company/Index" class="text-white"><i class="fas fa-arrow-circle-right"></i></a></span>
                         </div>
@@ -57,11 +62,11 @@
                     <div class="row text-white">
                         <div class="col-6">
                             <h1><i class="fa fa-line-chart background-round text-white p-2 font-medium-3"></i></h1>
-                            <h4 class="pt-1 m-0 text-white">Count: @ViewBag.Units </h4>
+                            <h4 class="pt-1 m-0 text-white">@SharedLocalizer["Count"]: @ViewBag.Units </h4>
                         </div>
                         <div class="col-6 text-right pl-0">
-                            <h4 class="text-white mb-2">Units</h4>
-                            <span>More info</span>
+                            <h4 class="text-white mb-2">@SharedLocalizer["Units"]</h4>
+                            <span>@SharedLocalizer["Moreinfo"]</span>
                             <br>
                             <span><a href="/Admin/Unit/Index" class="text-white"><i class="fas fa-arrow-circle-right"></i></a></span>
                         </div>

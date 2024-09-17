@@ -4,8 +4,8 @@
 @inject bill_Entities.Repoistory.ICompanyRepoistory Comp;
 @inject bill_Entities.Repoistory.ITypeRepoistory Type;
 @{
-    ViewBag.PageTitle = "Item Management";
-    ViewBag.CardTitle = "Edit Item";
+    ViewBag.PageTitle = @SharedLocalizer["ItemManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["EditData"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -15,7 +15,7 @@
         <form asp-action="Edit" asp-controller="Item" method="post">
             <input hidden asp-for="Id" />
             <div class="mb-3">
-                <label asp-for="CompanyId" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["CompanyName"]</label>
                 <select asp-for="CompanyId" required class="form-control" >
                     <option disabled >--Select Company--</option>
                     @foreach (var item in Comp.GetAll())
@@ -27,7 +27,7 @@
                 <span asp-validation-for="company" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="TypeId" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["TypeName"]</label>
                 <select asp-for="TypeId" required class="form-control">
                     <option disabled >--Select Type--</option>
                     @foreach (var item in Type.GetAll())
@@ -38,27 +38,27 @@
                 <span asp-validation-for="type" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="ItemName" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["ItemName"]</label>
                 <input asp-for="ItemName" required class="form-control" />
                 <span asp-validation-for="ItemName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="SellingPrice" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["SellingPrice"]</label>
                 <input asp-for="SellingPrice" required class="form-control" />
                 <span asp-validation-for="SellingPrice" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="BuyingPrice" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["BuyingPrice"]</label>
                 <input asp-for="BuyingPrice" required class="form-control" />
                 <span asp-validation-for="BuyingPrice" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Notes" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["NotesCompent"]</label>
                 <textarea asp-for="Notes" required class="form-control"></textarea>
             </div>
             <div class="mb-3">
-                <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Item" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||
-                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Item">Go To Home</a>
+                <button type="submit" asp-area="Admin" asp-action="Edit" asp-controller="Item" class="btn btn-outline-success" style="width:120px;height:40px">@SharedLocalizer["btnSave"]</button> ||
+                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Item">@SharedLocalizer["btnGoHome"]</a>
             </div>
         </form>
     </div>

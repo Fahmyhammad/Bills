@@ -3,14 +3,14 @@
 @model IEnumerable<ClientViewModel>
 
 @{
-    ViewBag.PageTitle = "Client Management";
-    ViewBag.CardTitle = "Client List";
+    ViewBag.PageTitle = @SharedLocalizer["ClientManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["ClientList"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="container">
     <div class="row mb-3">
         <div class="col-md-4 col-12">
-            <a class="btn btn-outline-primary btn-sm py-1 px-4 mt-0 animate__animated animate__fadeInUp" style="width: 100%;" asp-controller="Client" asp-action="Create">Add Client</a>
+            <a class="btn btn-outline-primary btn-sm py-1 px-4 mt-0 animate__animated animate__fadeInUp" style="width: 100%;" asp-controller="Client" asp-action="Create">@SharedLocalizer["btnAdd"]</a>
         </div>
     </div>
 
@@ -18,10 +18,10 @@
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Client Name</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Number</th>
-                    <th scope="col">Address</th>
+                    <th scope="col">@SharedLocalizer["TextName"]</th>
+                    <th scope="col">@SharedLocalizer["Phone"]</th>
+                    <th scope="col">@SharedLocalizer["Number"]</th>
+                    <th scope="col">@SharedLocalizer["Address"]</th>
                     <th scope="col"></th>
 
                 </tr>
@@ -35,8 +35,8 @@
                         <td>@item.Number</td>
                         <td>@item.Address</td>
                         <td>
-                            <a href="/Admin/Client/Edit/@item.Id" class="btn btn-outline-success btn-sm">Edit</a>
-                            <a href="/Admin/Client/Delete/@item.Id" class="btn btn-outline-danger btn-sm">Delete</a>
+                            <a href="/Admin/Client/Edit/@item.Id" class="btn btn-outline-success btn-sm">@SharedLocalizer["btnEdit"]</a>
+                            <a href="/Admin/Client/Delete/@item.Id" class="btn btn-outline-danger btn-sm">@SharedLocalizer["btnDelete"]</a>
                         </td>
                     </tr>
                 }

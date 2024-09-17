@@ -6,8 +6,8 @@
 
 
 @{
-    ViewBag.PageTitle = "Bill Management";
-    ViewBag.CardTitle = "Create Bill";
+    ViewBag.PageTitle = @SharedLocalizer["BillManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["CreateData"];
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -15,18 +15,8 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post">
-            @* <div class="mb-3">
-                <label asp-for="DateTime" class="form-label"></label>
-                <input asp-for="DateTime" disabled  class="form-control" />
-                <span asp-validation-for="DateTime" class="text-danger"></span>
-            </div>
             <div class="mb-3">
-                <label asp-for="BillsCode" class="form-label"></label>
-                <input asp-for="BillsCode" disabled class="form-control" />
-                <span asp-validation-for="BillsCode" class="text-danger"></span>
-            </div> *@
-            <div class="mb-3">
-                <label asp-for="ClientId" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["ClientName"]</label>
                 <select asp-for="ClientId" required class="form-control">
                     <option disabled selected>--Select Client--</option>
                     @foreach(var item in Client.GetAll())
@@ -37,7 +27,7 @@
                 <span asp-validation-for="ClientId" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="TableItemId" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["ItemName"]</label>
                 <select asp-for="TableItemId" required class="form-control">
                     <option disabled selected>--Select Item--</option>
                     @foreach(var item in Item.GetAll())
@@ -47,45 +37,27 @@
                 </select>
                 <span asp-validation-for="TableItemId" class="text-danger"></span>
             </div>
-            @* <div class="mb-3">
-                <label asp-for="Price" class="form-label"></label>
-                <input asp-for="Price" disabled class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div> *@
             <div class="mb-3">
-                <label asp-for="Quintity" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["Quantity"]</label>
                 <input asp-for="Quintity"  class="form-control" />
                 <span asp-validation-for="Quintity" class="text-danger"></span>
             </div>
-           @*  <div class="mb-3">
-                <label asp-for="Total" class="form-label"></label>
-                <input asp-for="Total" disabled class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
-            </div> *@
+         
             <div class="mb-3">
-                <label asp-for="Discount" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["Discount"]</label>
                 <input asp-for="Discount"  class="form-control" />
                 <span asp-validation-for="Discount" class="text-danger"></span>
             </div>
-            @* <div class="mb-3">
-                <label asp-for="NetPrice" class="form-label"></label>
-                <input asp-for="NetPrice" disabled class="form-control" />
-                <span asp-validation-for="NetPrice" class="text-danger"></span>
-            </div> *@
+           
             <div class="mb-3">
-                <label asp-for="PaidUp" class="form-label"></label>
+                <label class="form-label">@SharedLocalizer["PaidUp"]</label>
                 <input asp-for="PaidUp"  class="form-control" />
                 <span asp-validation-for="PaidUp" class="text-danger"></span>
             </div>
-          @*   <div class="mb-3">
-                <label asp-for="TheRest" class="form-label"></label>
-                <input asp-for="TheRest" disabled class="form-control" />
-                <span asp-validation-for="TheRest" class="text-danger"></span>
-            </div> *@
 
             <div class="mb-3">
-                <button type="submit" value="Create" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||
-                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="SalesInvoice">Go To Home</a>
+                <button type="submit" value="Create" class="btn btn-outline-success" style="width:120px;height:40px">@SharedLocalizer["btnSave"]</button> ||
+                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="SalesInvoice">@SharedLocalizer["btnGoHome"]</a>
             </div>
         </form>
     </div>

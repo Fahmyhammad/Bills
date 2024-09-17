@@ -4,8 +4,8 @@
 @model ReportViewModel
 @inject ISalesInvoiceRepoistory Sales;
 @{
-    ViewBag.PageTitle = "Report Management";
-    ViewBag.CardTitle = "Report Company";
+    ViewBag.PageTitle = @SharedLocalizer["ReportManagement"];
+    ViewBag.CardTitle = @SharedLocalizer["CreateData"]; 
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -14,7 +14,7 @@
     <div class="col-md-4">
         <form asp-action="Create" asp-controller="Report" method="post">
             <div class="form-group">
-                <label asp-for="SalesList" class="control-label">Sales Invoices</label>
+                <label class="control-label">@SharedLocalizer["SalesList"];</label>
                 <select asp-for="SalesId" class="form-control">
                     <option disabled selected>--Select Sales Date--</option>
                     @foreach (var item in Sales.GetAll())
@@ -25,19 +25,19 @@
                 <span asp-validation-for="SalesId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ReportFrom" class="control-label">Report From</label>
+                <label class="control-label">@SharedLocalizer["From"]</label>
                 <input asp-for="ReportFrom" class="form-control" />
                 <span asp-validation-for="ReportFrom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ReportTo" class="control-label">Report To</label>
+                <label class="control-label">@SharedLocalizer["To"]</label>
                 <input asp-for="ReportTo" class="form-control" />
                 <span asp-validation-for="ReportTo" class="text-danger"></span>
             </div>
            
             <div class="mb-3">
-                <button type="submit" class="btn btn-outline-success" style="width:120px;height:40px">Save</button> ||
-                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Report">Go To Home</a>
+                <button type="submit" class="btn btn-outline-success" style="width:120px;height:40px">@SharedLocalizer["btnSave"]</button> ||
+                <a class="btn btn-outline-danger" style="width:120px;height:40px" asp-action="Index" asp-controller="Report">@SharedLocalizer["btnGoHome"]</a>
             </div>
         </form>
     </div>
