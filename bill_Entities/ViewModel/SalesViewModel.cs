@@ -22,7 +22,7 @@ namespace bill_Entities.ViewModel
 
         public int BillsCode { get; set; }
         [Required]
-        public DateTime DateTime { get; set; } = DateTime.Now;
+        public DateTime DateTime { get; set; }
         [Required]
         [Range(0, double.MaxValue, ErrorMessage = "Quintity Must be Greater than or equal Zero")]
         public int Quintity { get; set; }

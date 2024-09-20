@@ -39,7 +39,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 if (result)
                 {
                     TempData["ErrorName"] = "The Client name already exists.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Create));
                 }
 
                 var clientEntity = _mapper.Map<Client>(client);
@@ -79,7 +79,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 if (result)
                 {
                     TempData["ErrorName"] = "The client name already exists.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Edit));
                 }
 
                 var value = _db.client.GetById(s => s.Id == client.Id);
@@ -128,7 +128,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = $"Error deleting company: {ex.Message}";
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
 
         }

@@ -4,7 +4,7 @@
 @inject bill_Entities.Repoistory.ICompanyRepoistory Comp;
 @inject bill_Entities.Repoistory.ITypeRepoistory Type;
 
- 
+
 @{
     ViewBag.PageTitle = @SharedLocalizer["ItemManagement"];
     ViewBag.CardTitle = @SharedLocalizer["CreateData"];
@@ -17,23 +17,20 @@
         <form asp-action="AddItem" method="post">
             <div class="mb-3">
                 <label class="form-label">@SharedLocalizer["CompanyName"]</label>
-                <select asp-for="CompanyId" required class="form-control">
+                <select id="companySelect" asp-for="CompanyId" required class="form-control">
                     <option disabled selected>--Select Company--</option>
-                    @foreach(var item in Comp.GetAll())
+                    @foreach (var item in Model.CompanyList)
                     {
                         <option value="@item.Id">@item.Name</option>
                     }
                 </select>
                 <span asp-validation-for="CompanyId" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">@SharedLocalizer["TypeName"]</label>
-                <select asp-for="TypeId" required class="form-control" asp-items="Model.TypeList">
+                <select id="typesSelect" asp-for="TypeId" required class="form-control">
                     <option disabled selected>--Select Type--</option>
-                    @foreach(var item in Type.GetAll())
-                    {
-                        <option value="@item.Id">@item.TypeName</option>
-                    }
                 </select>
                 <span asp-validation-for="TypeId" class="text-danger"></span>
             </div>
@@ -66,8 +63,34 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
 }
+<script>
+    $(document).ready(function () {
+        $('#companySelect').change(function () {
+            var companyId = $(this).val();
+            if (companyId) {
+                $.ajax({
+                    url: '@Url.Action("GetTypesByCompanyId", "Item")',
+                    type: 'GET',
+                    data: { companyId: companyId },
+                    success: function (data) {
+                        $('#typesSelect').empty();
+                        $('#typesSelect').append('<option disabled selected>--Select Type--</option>');
+                        $.each(data, function (i, type) {
+                            $('#typesSelect').append('<option value="' + type.id + '">' + type.typeName + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#typesSelect').empty();
+                $('#typesSelect').append('<option disabled selected>--Select Type--</option>');
+            }
+        });
+    });
+</script>

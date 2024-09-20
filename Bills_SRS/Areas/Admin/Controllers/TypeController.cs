@@ -46,7 +46,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 if (result)
                 {
                     TempData["ErrorName"] = "The Type name already exists.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Create));
                 }
 
                 var EntityData = _mapper.Map<Types>(types);
@@ -89,7 +89,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
             if (result)
             {
                 TempData["ErrorName"] = "The Type name already exists.";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Edit));
             }
 
             var value = _db.type.GetById(s => s.Id == types.Id);
@@ -136,7 +136,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = $"Error deleting company: {ex.Message}";
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
 
         }

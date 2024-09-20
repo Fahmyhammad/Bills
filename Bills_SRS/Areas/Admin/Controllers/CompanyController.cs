@@ -17,6 +17,9 @@ namespace Bills_SRS.Areas.Admin.Controllers
         private readonly IUnitOfWork _db = db;
         private readonly IMapper _mapper = mapper;
 
+
+
+
         [AllowAnonymous]
         public IActionResult Index()
         {
@@ -40,7 +43,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 if (result)
                 {
                     TempData["ErrorName"] = "The company name already exists.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Create");
                 }
 
                 var companyModle = _mapper.Map<Company>(company);
@@ -76,7 +79,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 if (result)
                 {
                     TempData["ErrorName"] = "The company name already exists.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Edit));
                 }
 
                 var value = _db.company.GetById(s => s.Id == company.Id);
@@ -127,7 +130,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
             {
 
                 TempData["ErrorMessage"] = $"Error deleting company: {ex.Message}";
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
 
             }
 

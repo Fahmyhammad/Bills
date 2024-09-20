@@ -13,7 +13,6 @@
         <div class="col-md-4 col-12 mb-2 mb-md-0">
             <a class="btn btn-outline-primary btn-block py-1 px-4 animate__animated animate__fadeInUp" asp-controller="SalesInvoice" asp-action="Create">@SharedLocalizer["btnAdd"]</a>
         </div>
-        
     </div>
 
     <!-- Sales Invoices Table -->
@@ -28,8 +27,10 @@
                     <th scope="col">@SharedLocalizer["Quantity"]</th>
                     <th scope="col">@SharedLocalizer["Total"]</th>
                     <th scope="col">@SharedLocalizer["Discount"]</th>
+                    <th scope="col">@SharedLocalizer["NetTotal"]</th>
+                    <th scope="col">@SharedLocalizer["PaidUp"]</th>
                     <th scope="col">@SharedLocalizer["Remaining"]</th>
-                    <th scope="col"></th>
+                    <th scope="col">@SharedLocalizer["Actions"]</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,15 +40,17 @@
                         <td>@item.BillsCode</td>
                         <td>@item.client.ClientName</td>
                         <td>@item.TableItem.ItemName</td>
-                        <td>@item.Price</td>
+                        <td>@item.Price.ToString("C")</td>
                         <td>@item.Quintity</td>
-                        <td>@item.Total</td>
-                        <td>@item.Discount</td>
-                        <td>@item.TheRest</td>
+                        <td>@item.Total.ToString("C")</td>
+                        <td>@item.Discount.ToString("C")</td>
+                        <td>@item.NetPrice.ToString("C")</td>
+                        <td>@item.PaidUp.ToString("C")</td>
+                        <td>@item.TheRest.ToString("C")</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a href="/Admin/SalesInvoice/Delete/@item.Id" class="btn btn-outline-danger btn-sm">@SharedLocalizer["btnDelete"]</a>
-                                <a href="/Admin/SalesInvoice/Ditails/@item.Id" class="btn btn-outline-info btn-sm">@SharedLocalizer["Details"]</a>
+                                <a href="/Admin/SalesInvoice/Details/@item.Id" class="btn btn-outline-info btn-sm">@SharedLocalizer["Details"]</a>
                             </div>
                         </td>
                     </tr>

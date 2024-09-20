@@ -22,14 +22,34 @@ namespace Bills_SRS.Areas.Admin.Controllers
             var allData = _mapper.Map<IEnumerable<ItemViewModel>>(result);
             return View(allData);
         }
+
+        [HttpGet]
+        public IActionResult GetTypesByCompanyId(int companyId)
+        {
+            var types = _db.type.GetAll(t => t.CompanyId == companyId);
+            var result = types.Select(t => new {
+                id = t.Id,
+                typeName = t.TypeName
+            });
+
+            return Json(result);
+        }
+
+
         [HttpGet]
         [Authorize(Roles = "Admin,Editor")]
-
         public IActionResult Create()
         {
+
+            var listComp = _db.company.GetAll();
+
             ItemViewModel itemView = new ItemViewModel
             {
                 item = _mapper.Map<tableItem>(new tableItem()),
+                CompanyList = listComp,
+
+                TypeList = new List<Types>()
+
             };
             return View(itemView);
         }
@@ -45,14 +65,14 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 if (result)
                 {
                     TempData["ErrorName"] = "The Type name already exists.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Create));
                 }
 
 
                 if (items.BuyingPrice > items.SellingPrice)
                 {
                     TempData["ErrorPrice"] = "BUYING PRICE Must be less than or equal SELLING PRICE.";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Create));
                 }
 
                 var netityData = _mapper.Map<tableItem>(items);
@@ -65,23 +85,38 @@ namespace Bills_SRS.Areas.Admin.Controllers
             }
             return View(items);
         }
+
+
+        [HttpGet]
+        public JsonResult GetTypesByCompany(int companyId)
+        {
+            var types = _db.type.GetAll(x => x.CompanyId == companyId);
+            return Json(types);
+        }
+
+
+
         [HttpGet]
         [Authorize(Roles = "Admin,Editor")]
-
         public IActionResult Edit(int? id)
         {
             if (id == 0 || id == null)
             {
                 return NotFound();
             }
-
             var item = _db.item.GetById(x => x.Id == id);
             if (item == null)
             {
                 return NotFound();
             }
+            var listComp = _db.company.GetAll();
 
             var itemView = _mapper.Map<ItemViewModel>(item);
+
+            itemView.CompanyList = _db.company.GetAll(); 
+
+            itemView.TypeList = _db.type.GetAll(x => x.CompanyId == item.CompanyId);
+
 
             return View(itemView);
         }
@@ -101,7 +136,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
             if (result)
             {
                 TempData["ErrorName"] = "The Type name already exists.";
-                return View(items);
+                return RedirectToAction(nameof(Edit));
             }
             var value = _db.item.GetById(x => x.Id == items.Id);
             if (value != null)
@@ -113,7 +148,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 if (value.BuyingPrice > value.SellingPrice)
                 {
                     TempData["ErrorPrice"] = "BUYING PRICE Must be less than or equal SELLING PRICE.";
-                    return View(items);
+                    return RedirectToAction(nameof(Edit));
                 }
 
                 _db.item.UpDate(value);
@@ -154,7 +189,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
             {
 
                 TempData["ErrorMessage"] = $"Error deleting company: {ex.Message}";
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
 
         }

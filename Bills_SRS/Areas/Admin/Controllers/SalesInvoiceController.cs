@@ -51,14 +51,13 @@ namespace Bills_SRS.Areas.Admin.Controllers
                     return View(salesView);
                 }
 
+                // Use the same logic for calculating the totals
                 salesView.Price = item.SellingPrice;
-
                 salesView.Total = _db.salesInvoice.CalculatPrice(salesView.Quintity, salesView.Price);
 
                 salesView.NetPrice = _db.salesInvoice.CalculatNetPrice(salesView.Total, salesView.Discount);
 
                 salesView.TheRest = _db.salesInvoice.CalculatTheRest(salesView.NetPrice, salesView.PaidUp);
-
 
                 var entityData = _mapper.Map<SalesInvoice>(salesView);
 
@@ -66,11 +65,11 @@ namespace Bills_SRS.Areas.Admin.Controllers
                 await _db.Complete();
                 TempData["Create"] = "Create Sales";
                 return RedirectToAction("Index");
-
             }
 
             return View(salesView);
         }
+
 
 
         [AllowAnonymous]
@@ -135,7 +134,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = $"Error deleting company: {ex.Message}";
-                return RedirectToAction("Index");
+                return RedirectToAction("Delete");
             }
 
         }

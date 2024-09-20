@@ -15,28 +15,29 @@
         <form asp-action="Edit" asp-controller="Item" method="post">
             <input hidden asp-for="Id" />
             <div class="mb-3">
-                <label class="form-label">@SharedLocalizer["CompanyName"]</label>
-                <select asp-for="CompanyId" required class="form-control" >
-                    <option disabled >--Select Company--</option>
-                    @foreach (var item in Comp.GetAll())
+                <label class="form-label">Company Name</label>
+                <select id="companySelect" asp-for="CompanyId" class="form-control">
+                    <option disabled selected>--Select Company--</option>
+                    @foreach (var company in Model.CompanyList)
                     {
-                        <option value="@item.Id">@item.Name</option>
+                        <option value="@company.Id">@company.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CompanyId" class="text-danger"></span>
+            </div>
 
-                    }
-                </select>
-                <span asp-validation-for="company" class="text-danger"></span>
-            </div>
             <div class="mb-3">
-                <label class="form-label">@SharedLocalizer["TypeName"]</label>
-                <select asp-for="TypeId" required class="form-control">
-                    <option disabled >--Select Type--</option>
-                    @foreach (var item in Type.GetAll())
+                <label class="form-label">Type Name</label>
+                <select id="typesSelect" asp-for="TypeId" class="form-control">
+                    <option disabled selected>--Select Type--</option>
+                    @foreach (var type in Model.TypeList)
                     {
-                        <option value="@item.Id">@item.TypeName</option>
+                        <option value="@type.Id">@type.TypeName</option>
                     }
                 </select>
-                <span asp-validation-for="type" class="text-danger"></span>
+                <span asp-validation-for="TypeId" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">@SharedLocalizer["ItemName"]</label>
                 <input asp-for="ItemName" required class="form-control" />
@@ -64,8 +65,57 @@
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
 }
+<script>
+    $(document).ready(function () {
+        $('#companySelect').change(function () {
+            var companyId = $(this).val();
+
+            $.ajax({
+                url: '@Url.Action("GetTypesByCompany", "Item")',
+                type: 'GET',
+                data: { companyId: companyId },
+                success: function (data) {
+                    $('#typesSelect').empty();
+
+                    $.each(data, function (index, type) {
+                        $('#typesSelect').append('<option value="' + type.id + '">' + type.typeName + '</option>');
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching types: " + error);
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#companySelect').change(function () {
+            var companyId = $(this).val();
+            if (companyId) {
+                $.ajax({
+                    url: '@Url.Action("GetTypesByCompanyId", "Item")',
+                    type: 'GET',
+                    data: { companyId: companyId },
+                    success: function (data) {
+                        var typesSelect = $('#typesSelect');
+                        typesSelect.empty();
+                        typesSelect.append('<option disabled selected>--Select Type--</option>');
+                        $.each(data, function (index, type) {
+                            typesSelect.append('<option value="' + type.id + '">' + type.typeName + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>

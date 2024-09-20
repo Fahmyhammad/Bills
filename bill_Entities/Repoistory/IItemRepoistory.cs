@@ -13,5 +13,7 @@ namespace bill_Entities.Repoistory
         void UpDate(tableItem item);
         bool ItemName(ItemViewModel item);
 
+        IEnumerable<Types> GetAllByCompanyId(int companyId);
+
     }
 }

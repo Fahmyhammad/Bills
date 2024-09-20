@@ -13,12 +13,12 @@
             <input hidden asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label>@SharedLocalizer["TypeName"];</label>
+                <label>@SharedLocalizer["TypeName"]</label>
                 <input asp-for="TypeName" disabled class="form-control" />
                 <span asp-validation-for="TypeName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label>@SharedLocalizer["NotesCompent"];</label>
+                <label>@SharedLocalizer["NotesCompent"]</label>
                 <input asp-for="Notes" disabled class="form-control" />
             </div>
             <div class="mb-3">

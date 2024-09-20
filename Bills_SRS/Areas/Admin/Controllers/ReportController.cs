@@ -42,20 +42,14 @@ namespace Bills_SRS.Areas.Admin.Controllers
         {
             if (model != null)
             {
-                //Report report = new Report
-                //{
-                //    ReportFrom = model.Report.ReportFrom,
-                //    ReportTo = model.Report.ReportTo,
-                //    SalesId = model.Report.SalesId
-                //};
-
+               
                 var DataEntity = _mapper.Map<Report>(model);
 
                 _db.report.Add(DataEntity);
                 await _db.Complete();
 
                 TempData["Create"] = "Create Report";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             }
 
             model.SalesList = _db.salesInvoice.GetAll().Select(x => new SelectListItem

@@ -15,44 +15,67 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post">
+
+            <div class="mb-3">
+                <label class="form-label">@SharedLocalizer["Date"]</label>
+                <input  asp-for="DateTime" type="date" class="form-control" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
             <div class="mb-3">
                 <label class="form-label">@SharedLocalizer["ClientName"]</label>
                 <select asp-for="ClientId" required class="form-control">
                     <option disabled selected>--Select Client--</option>
-                    @foreach(var item in Client.GetAll())
+                    @foreach (var client in Client.GetAll())
                     {
-                        <option value="@item.Id">@item.ClientName</option>
+                        <option value="@client.Id">@client.ClientName</option>
                     }
                 </select>
                 <span asp-validation-for="ClientId" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">@SharedLocalizer["ItemName"]</label>
-                <select asp-for="TableItemId" required class="form-control">
+                <select id="itemSelect" asp-for="TableItemId" required class="form-control">
                     <option disabled selected>--Select Item--</option>
-                    @foreach(var item in Item.GetAll())
+                    @foreach (var item in Item.GetAll())
                     {
-                        <option value="@item.Id">@item.ItemName</option>
+                        <option value="@item.Id" data-price="@item.SellingPrice">@item.ItemName</option>
                     }
                 </select>
                 <span asp-validation-for="TableItemId" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">@SharedLocalizer["Quantity"]</label>
-                <input asp-for="Quintity"  class="form-control" />
+                <input id="quantityInput" asp-for="Quintity" class="form-control" />
                 <span asp-validation-for="Quintity" class="text-danger"></span>
             </div>
-         
+
             <div class="mb-3">
                 <label class="form-label">@SharedLocalizer["Discount"]</label>
-                <input asp-for="Discount"  class="form-control" />
+                <input id="discountInput" asp-for="Discount" class="form-control" />
                 <span asp-validation-for="Discount" class="text-danger"></span>
             </div>
-           
+
+            <div class="mb-3">
+                <label class="form-label">@SharedLocalizer["Total"]</label>
+                <input id="totalInput" asp-for="Total" class="form-control" disabled />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">@SharedLocalizer["NetTotal"]</label>
+                <input id="netPriceInput" asp-for="NetPrice" class="form-control" disabled />
+            </div>
+
             <div class="mb-3">
                 <label class="form-label">@SharedLocalizer["PaidUp"]</label>
-                <input asp-for="PaidUp"  class="form-control" />
+                <input id="paidUpInput" asp-for="PaidUp" class="form-control" />
                 <span asp-validation-for="PaidUp" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">@SharedLocalizer["Remaining"]</label>
+                <input id="theRestInput" asp-for="TheRest" class="form-control" disabled />
             </div>
 
             <div class="mb-3">
@@ -68,3 +91,29 @@
     <partial name="_ValidationScriptsPartial" />
 
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function calculateTotals() {
+            var price = parseFloat($('#itemSelect option:selected').data('price')) || 0;
+            var quantity = parseInt($('#quantityInput').val()) || 0;
+            var discount = parseFloat($('#discountInput').val()) || 0;
+            var paidUp = parseFloat($('#paidUpInput').val()) || 0;
+
+            var total = price * quantity;
+            $('#totalInput').val(total.toFixed(2));
+
+            var netPrice = total - discount;
+            $('#netPriceInput').val(netPrice.toFixed(2));
+
+            var theRest = netPrice - paidUp;
+            $('#theRestInput').val(theRest.toFixed(2));
+        }
+
+        $('#itemSelect, #quantityInput, #discountInput, #paidUpInput').on('input change', function () {
+            calculateTotals();
+        });
+
+        calculateTotals();
+    });
+</script>

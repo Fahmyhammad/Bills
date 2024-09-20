@@ -40,9 +40,9 @@ namespace bill_Entities.ViewModel
 
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> CompanyList { get; set; }
+        public IEnumerable<Company> CompanyList { get; set; }
         [ValidateNever]
-        public IEnumerable<SelectListItem> TypeList { get; set; }
+        public IEnumerable<Types> TypeList { get; set; }
         public tableItem item { get; set; }
 
     }

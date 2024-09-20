@@ -19,6 +19,11 @@ namespace bill_DataAccess.Implementation
             _db = db;
         }
 
+        public IEnumerable<Types> GetAllByCompanyId(int companyId)
+        {
+            return _db.Types.Where(t => t.CompanyId == companyId).ToList();
+        }
+
         public bool ItemName(ItemViewModel item)
         {
             bool result = _db.Items.Any(x => x.ItemName == item.ItemName && x.Id != item.Id);

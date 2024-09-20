@@ -27,8 +27,11 @@ namespace bill_Entities.ViewModel
         public int SalesId { get; set; }
         public SalesInvoice Sales { get; set; }
 
+      //  public List<SalesInvoice> SalesList { get; set; }
+
+        public List<DateTime> DatesList { get; set; }
         [ValidateNever]
-      public IEnumerable<SelectListItem> SalesList { get; set; }
+       public IEnumerable<SelectListItem> SalesList { get; set; }
         public Report Report { get; set; }
 
     }
