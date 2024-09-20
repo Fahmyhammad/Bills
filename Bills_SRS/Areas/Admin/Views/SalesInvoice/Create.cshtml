@@ -39,10 +39,16 @@
                     <option disabled selected>--Select Item--</option>
                     @foreach (var item in Item.GetAll())
                     {
-                        <option value="@item.Id" data-price="@item.SellingPrice">@item.ItemName</option>
+                        <option value="@item.Id">@item.ItemName</option>
                     }
                 </select>
+
                 <span asp-validation-for="TableItemId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">@SharedLocalizer["Price"]</label>
+                <input asp-for="Price" id="priceInput" class="form-control"  />
+                <span asp-validation-for="Price" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
@@ -112,6 +118,56 @@
 
         $('#itemSelect, #quantityInput, #discountInput, #paidUpInput').on('input change', function () {
             calculateTotals();
+        });
+
+        calculateTotals();
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#itemSelect').change(function () {
+            var selectedItemId = $(this).val();
+            if (selectedItemId) {
+                $.ajax({
+                    url: '@Url.Action("GetItemPrice", "SalesInvoice")', 
+                    type: 'GET',
+                    data: { itemId: selectedItemId }, 
+                    success: function (response) {
+                        if (response.success) {
+                            var price = response.price;
+                            $('#itemSelect').attr('data-price', price);
+                            $('#priceInput').val(price.toFixed(2));  
+
+                            calculateTotals();
+                        } else {
+                            alert(response.message); 
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while fetching the item price.");
+                    }
+                });
+            }
+        });
+
+        function calculateTotals() {
+            var price = parseFloat($('#itemSelect').attr('data-price')) || 0; 
+            var quantity = parseInt($('#quantityInput').val()) || 0; 
+            var discount = parseFloat($('#discountInput').val()) || 0; 
+            var paidUp = parseFloat($('#paidUpInput').val()) || 0; 
+            var total = price * quantity;
+            $('#totalInput').val(total.toFixed(2));
+
+            var netPrice = total - discount;
+            $('#netPriceInput').val(netPrice.toFixed(2));
+
+            var theRest = netPrice - paidUp;
+            $('#theRestInput').val(theRest.toFixed(2));
+        }
+
+        $('#quantityInput, #discountInput, #paidUpInput').on('input change', function () {
+            calculateTotals(); 
         });
 
         calculateTotals();

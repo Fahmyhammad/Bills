@@ -23,6 +23,20 @@ namespace Bills_SRS.Areas.Admin.Controllers
             return View(allData);
         }
 
+
+        [HttpGet]
+        public JsonResult GetItemPrice(int itemId)
+        {
+            var item = _db.item.GetById(x => x.Id == itemId);
+            if (item != null)
+            {
+                return Json(new { success = true, price = item.SellingPrice });
+            }
+            return Json(new { success = false, message = "Item not found" });
+        }
+
+
+
         [Authorize(Roles = "Admin,Editor")]
         public IActionResult Create()
         {
@@ -35,6 +49,7 @@ namespace Bills_SRS.Areas.Admin.Controllers
             return View(salesView);
 
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -51,8 +66,6 @@ namespace Bills_SRS.Areas.Admin.Controllers
                     return View(salesView);
                 }
 
-                // Use the same logic for calculating the totals
-                salesView.Price = item.SellingPrice;
                 salesView.Total = _db.salesInvoice.CalculatPrice(salesView.Quintity, salesView.Price);
 
                 salesView.NetPrice = _db.salesInvoice.CalculatNetPrice(salesView.Total, salesView.Discount);
